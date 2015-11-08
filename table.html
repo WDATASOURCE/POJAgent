@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		function table () {
+        	var tablehtml = '';
+        	tablehtml += '<table id = "mytable" border="1"><tr>';
+        	for(var tdcol = 1; tdcol < 9; tdcol++) 
+        		tablehtml += '<td>1</td>';
+        	tablehtml += '</tr>';
+            for (var trrow = 2; trrow < 9; trrow++) {
+                tablehtml += '<tr>';
+                for (var tdcol = 1; tdcol < 9; tdcol++) {
+                    if(tdcol == 1) tablehtml += '<td>1</td>';
+                    else tablehtml += '<td></td>';
+                }
+                tablehtml += '</tr>';
+            }
+        	tablehtml += '</table>';
+        	document.getElementById("tablehtml").innerHTML = tablehtml;
+
+        	var mytable = document.getElementById("mytable");
+        	for(var trrow = 1; trrow < 8; trrow++)
+        		for(var tdcol = 1; tdcol < 8; tdcol++)
+        			mytable.rows[trrow].cells[tdcol].innerHTML = (parseInt(mytable.rows[trrow].cells[tdcol - 1].innerHTML) + parseInt(mytable.rows[trrow - 1].cells[tdcol].innerHTML));
+		}
+	</script>
+</head>
+<body onload="table()">
+<div id="tablehtml"></div>
+</body>
+</html>
