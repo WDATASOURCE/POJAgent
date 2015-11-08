@@ -54,18 +54,20 @@ class POJStatus:
                 insertSql = "INSERT INTO pojStatus(RunId, User, Problem, Result, Memory, Time, Language, CodeLength, submitTime) VALUES ({}, '{}', {}, '{}', '{}', '{}', '{}', '{}', '{}')".format(int(status[0]), status[1], int(status[2]), status[3], status[4], status[5], status[6], status[7], status[8])
                 cursor.execute(insertSql)
             conn.commit()
-            print("insert into db " + str(len(statusList)) +" lows")
+            print("insert into db " + str(len(statusList)) +" rows")
             return True
-
         except:
-            print("insert failure")
+            print("insert into db failure")
             return False
 
 
     # 解析网页得到当前页的 提交信息存在 statusList 中
     def getStatusList(self, page):
         try:
-            self.nextStatusUrl = self.statusUrl + str(re.findall('\<a href=status(\?top\=.+?)\>', page.text)[0])
+            if(re.search('\<a href=status(\?top\=.+?)\>', page.text)):
+                self.nextStatusUrl = self.statusUrl + str(re.findall('\<a href=status(\?top\=.+?)\>', page.text)[0])
+            else: 
+                return []
             soup = BeautifulSoup(page.text, "html.parser")
             table = soup.findAll('table', {'class':'a'})
             soup = BeautifulSoup(str(table), "html.parser")
@@ -88,7 +90,7 @@ class POJStatus:
         except:
             print("get statusList failure")
             return []
-            
+
 
     ## 抓了 100 页的信息
     def getStatus(self):
@@ -96,6 +98,9 @@ class POJStatus:
             for i in range(1, 100):
                 page = self.session.get(self.nextStatusUrl)
                 statusList = self.getStatusList(page)
+                if(statusList == []):
+                    sleep(5)
+                    continue
                 self.insertData(statusList)
                 sleep(3)
 
