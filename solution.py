@@ -64,10 +64,9 @@ class POJSubmit:
     # return solutionList = {{runId, user, problem_id, result, memory, time, language, codeLength, submitTime}}:list
     def getOneProSolutionList(self, page):
 
-        if(re.search('\<a href=(status\?problem_id=\d{4}.user_id=[\w]+.top=\d+?)\>', page.text)):
-            self.nextPageUrl = self.POJUrl + str(re.findall('\<a href=(status\?problem_id=\d{4}.user_id=[\w]+.top=\d+?)\>', page.text)[0])
-        else: 
-            return []
+        if(re.search('\<a href=(status\?problem_id=\d{4}.user_id=' + self.userName + '.top=\d+?)\>', page.text)):
+            self.nextPageUrl = self.POJUrl + str(re.findall('\<a href=(status\?problem_id=\d{4}.user_id=' + self.userName +'.top=\d+?)\>', page.text)[0])
+        else: return []
         soup = BeautifulSoup(page.text, "html.parser")
         table = soup.findAll('table', {'class':'a'})
         soup = BeautifulSoup(str(table), "html.parser")
