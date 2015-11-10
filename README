@@ -1,0 +1,43 @@
+Web 前端
+任务一：http://icpc.njust.edu.cn/Profile/
+这个不想做了， 说一下我知道的要点：
+1. 框架 bootstrap
+2. 导航栏固定 已知的方法是在 css 中加入 position:fixed, 然后使他处于页面最顶端 z-index:999 之后的问题是这样会遮挡 <body> 标签中的内容，解决方法是设置 <body> 的 css 使其内容下移，下移宽度比导航栏宽度稍大就行了。
+3. css 实现鼠标悬停下拉菜单展开，从网上找到一个, 见 test.html
+4. 分栏设计可以用 bootstrap 的栅格系统
+5. 响应式布局可以用 css 实现，当屏幕大小不同的时候采用不同的布局 @media only screen and (min-width: 768px) and (max-width: 1020px) 用这个语句来分别定义不同尺寸的屏幕下的页面布局
+
+任务二：JS 实现表格
+我采用的方法是： 先用 JS 生成一个只有第一行和第一列有值的表格，然后再用 JS 填充， 见 table.html 文件
+
+
+
+Web后端
+说明: 利用 python 3.x实现, 实现过程没有处理异常, 均以所有请求顺利返回正确结果来处理的.
+任务一：返回题目列表
+利用了 requests 模块, 直接 requests.get(相应用户的主页), 然后正则表达式解析返回的网页源码(第一次用正则表达式，写挫了勿喷 =_=||) 见 solutionList.py
+
+任务二：模拟登陆并提交 1000
+利用 requests.session()来记录登陆信息, 然后抓取提交后的状态的时候是到相应用户的提交记录页面抓取的第一条. 见 loginSubmit.py
+
+任务三：抓取一部分提交记录并保存到数据库中，利用了 mysql.connector 模块来链接数据库, 每一页抓取一次并保存， 同时获取网页上下一页的链接，请求下一页，以此类推 见 status.py
+
+新加了一个可以爬取自己提交的所有代码（除了 CE ）的脚本  solution.py
+
+
+版本控制工具:
+仅仅是用过 github 并不真的会用，对于分支团队合作等并不了解
+主页： https://github.com/wdatasource/
+
+
+综合能力：
+科学上网：目前使用的是 shadowsocks， 一般只改一下 hosts
+个人博客：购买了搬瓦工的 vps, 用了 wordpress 的框架， 并没有什么技术含量。。。。 主页: http://blog.wdatasource.tk (ps: 可能是插件装的太多或者主题的原因， 打开有点慢)
+Linux：电脑上装有 Ubuntu15.04， 只会简单的命令
+数据库：mysql5.6
+英语：呵呵~~~
+
+
+
+个人说明：
+Python只看了个入门，上面web后端的那些东西都是边google边写的，基本属于 0 基础菜鸟， 然后对 jingo 框架一无所知。。。。。。
