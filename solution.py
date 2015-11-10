@@ -105,8 +105,7 @@ class POJSubmit:
         page = session.get(url = sourceLink);
         soup = BeautifulSoup(page.text, "html.parser")
         tag = soup.find_all("pre")[0]
-        fileText = tag.get_text()
-        print(fileText)
+        fileText = tag.get_text().replace('\r', '')
         return fileText;
     
     # 代码文件名 problem_id + "_" + yymmdd-hhmmss + "_" + memory +"_" + time +"_"+ result
@@ -155,7 +154,7 @@ class POJSubmit:
             fileName = filePath.split(".")[0] + str(i) + "." + filePath.split(".")[1]
             i = i + 1
         fp = open(fileName, 'w', encoding="utf-8")
-        fp.writelines(fileText)
+        fp.write(fileText)
         fp.close()
 
         print("write " + fileName +" file successful")
