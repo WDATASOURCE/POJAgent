@@ -105,7 +105,9 @@ class POJSubmit:
         page = session.get(url = sourceLink);
         soup = BeautifulSoup(page.text, "html.parser")
         tag = soup.find_all("pre")[0]
-        return tag.text;
+        fileText = tag.get_text()
+        print(fileText)
+        return fileText;
     
     # 代码文件名 problem_id + "_" + yymmdd-hhmmss + "_" + memory +"_" + time +"_"+ result
     def getFileName(self, oneProSolution):
@@ -152,7 +154,7 @@ class POJSubmit:
         while os.path.isfile(fileName):
             fileName = filePath.split(".")[0] + str(i) + "." + filePath.split(".")[1]
             i = i + 1
-        fp = open(fileName, "w")
+        fp = open(fileName, 'w', encoding="utf-8")
         fp.writelines(fileText)
         fp.close()
 
